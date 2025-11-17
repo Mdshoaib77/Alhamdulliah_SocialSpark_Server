@@ -137,3 +137,17 @@ app.post("/join-event", async (req, res) => {
     res.status(500).json({ message: "Failed to join the event. Try again later." });
   }
 });
+
+// New route to get user's joined events
+app.get("/joined-events", async (req, res) => {
+  const email = req.query.email;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required." });
+  }
+
+  const query = { email: email };
+  const cursor = joinedEventsCollection.find(query);
+  const result = await cursor.toArray();
+  res.status(200).json(result);
+});
