@@ -86,6 +86,7 @@
 // });
 
 
+// First time commit - from previous step
 const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -103,3 +104,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); // Apply CORS globally
 app.use(express.json());
+
+// New code added: MongoDB connection setup
+const uri = process.env.MONGO_URI;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
