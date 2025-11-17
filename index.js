@@ -86,7 +86,7 @@
 // });
 
 
-// First time commit - from previous step
+// First time commit - from previous steps
 const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
@@ -114,4 +114,26 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
+});
+
+// New route to handle user joining an event
+app.post("/join-event", async (req, res) => {
+  const { email, eventId } = req.body;
+
+  if (!email || !eventId) {
+    return res.status(400).json({ message: "Email and event ID are required." });
+  }
+
+  const joinedEvent = {
+    email: email,
+    eventId: eventId,
+    joinedAt: new Date(),
+  };
+
+  try {
+    const result = await joinedEventsCollection.insertOne(joinedEvent);
+    res.status(201).json({ message: "Successfully joined the event!" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to join the event. Try again later." });
+  }
 });
