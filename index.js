@@ -151,3 +151,18 @@ app.get("/joined-events", async (req, res) => {
   const result = await cursor.toArray();
   res.status(200).json(result);
 });
+
+// Connect to MongoDB
+async function run() {
+  try {
+    await client.connect();
+
+    const db = client.db("SocialSparkDB"); // Database name
+    const joinedEventsCollection = db.collection("joinedEvents");
+
+    console.log("Connected to MongoDB!");
+  } finally {
+  }
+}
+
+run().catch(console.dir);
