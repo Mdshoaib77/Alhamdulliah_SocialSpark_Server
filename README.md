@@ -43,9 +43,7 @@ This backend handles:
 
 👤 Author: Md Shoaib
 
-
 📍 Location: Bogura, Bangladesh
-
 
 📩 Email: mdshoaibfullstack@gmail.com
 - 
